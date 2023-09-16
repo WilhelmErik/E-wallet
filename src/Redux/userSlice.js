@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
+const USER_API = "https://randomuser.me/api/"
 export const getUser = createAsyncThunk("userSlice/getUser",
 async () =>{
     
