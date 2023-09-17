@@ -13,10 +13,7 @@ const initialState = [
 
 const cardsSlice = createSlice({
   name: "cards",
-  initialState: {
-    cards: [],
-    activeCard: {},
-  },
+  initialState,
   reducers: {},
 });
 
