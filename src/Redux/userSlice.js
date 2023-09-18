@@ -15,7 +15,9 @@ const userSlice = createSlice({
     name: {},
     status: null,
   },
-  reducers: {},
+  reducers: {
+   
+  },
   extraReducers: {
     [getUser.pending]: (state, action) => {
       state.status = "Loading...";
