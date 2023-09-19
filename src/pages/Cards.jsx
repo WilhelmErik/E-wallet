@@ -28,26 +28,24 @@ export default function Cards() {
     <main>
       <h1>E-Wallet</h1>
       <p>Active Card</p>
-      <div
-        style={{
-          width: "500px",
-          height: "200px",
-          border: "black solid 2px",
-          borderRadius: "4%",
-          background: "slateblue",
-        }}
-      >
+      <div className="credit-card">
         {userState.status === "Loading..." ? (
-          <p>Loading</p>
+          <p>CARDHOLDER</p>
         ) : (
           <p> {activeCard.cardHolder}</p>
         )}
+        <p> {activeCard.vendor}</p>
+        <p> {activeCard.cardNumber}</p>
+        <p>
+          {" "}
+          {activeCard.expireMonth}/{activeCard.expireYear}
+        </p>
       </div>
       <p>No</p>
       <div>
         {inactiveCards.map((card, idx) => {
           return (
-            <div key={idx}>
+            <div key={idx} className={`credit-card  ${card.vendor}`}>
               <p>Hello</p>
               <p>{card.cardHolder}</p>
             </div>

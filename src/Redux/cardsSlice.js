@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = [
   {
     active: true,
-    vendor: "MasterCard",
-    cardNumber: 123,
+    vendor: "Visa",
+    cardNumber: 1324939023840243,
     cardHolder: "Test Tester",
     expireMonth: 12,
     expireYear: 2023,
@@ -13,7 +13,7 @@ const initialState = [
   {
     active: false,
     vendor: "MasterCard",
-    cardNumber: 123,
+    cardNumber: 3233424251415155,
     cardHolder: "Test Tester",
     expireMonth: 12,
     expireYear: 2023,
@@ -31,8 +31,11 @@ const cardsSlice = createSlice({
       });
     },
   },
+  createCard: (state, action) => {
+    if (state.length >= 4) return;
+  },
 });
 
-export const { setNames } = cardsSlice.actions;
+export const { setNames, createCard } = cardsSlice.actions;
 export default cardsSlice.reducer;
 console.log(cardsSlice, "hello");
