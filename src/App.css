@@ -25,7 +25,8 @@
   height: 200px;
   border: black solid 2px;
   border-radius: 4%;
-  background: slateblue;       
+  background: slateblue;    
+  position: relative   
 }
 .MasterCard{
   background: rgb(135, 101, 40);   

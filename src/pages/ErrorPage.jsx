@@ -1,8 +1,13 @@
-import { useRouteError } from "react-router-dom";
+import { useRouteError, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function ErrorPage() {
   const error = useRouteError();
   console.error(error);
+  const navigate = useNavigate();
+  useEffect(() => {
+    setTimeout(() => navigate("/"), 2000);
+  }, []);
 
   return (
     <div id="error-page">
