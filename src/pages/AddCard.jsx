@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useReducer } from "react";
+import { useReducer } from "react";
 import { createCard } from "../Redux/cardsSlice";
 
 export default function AddCard() {
@@ -14,7 +14,7 @@ export default function AddCard() {
     vendor: "Mastercard",
     expireMonth: "01",
     expireYear: "2023",
-    CCV: null,
+    CCV: "",
   };
   function cardFormReducer(state, action) {
     switch (action.type) {
@@ -27,46 +27,53 @@ export default function AddCard() {
 
   const [cardState, dispatch] = useReducer(cardFormReducer, initialState);
 
-  function addSpaces(arg) {
-    let spaced = [...arg]
-      .map((e, i) => (i % 4 === 0 && i != 0 ? " " + e : e))
-      .join("");
-    return spaced;
-  }
   let displayedCCNumber = addSpaces(String(cardState.cardNumber));
 
-  const isNumber = (input) => {
-    return isNaN(Number(input)) && input !== "Backspace";
-  };
+  //-----------------------Functions ------------------------
+
+  function submitCard(e) {
+    e.preventDefault();
+    if (cardState.cardNumber.length === 16) {
+      reduxDispatch(createCard(cardState));
+      navigate("/success");
+    }
+  }
+  function isInvalidInput(keyInput) {
+    return (
+      (!isNumber(keyInput) && keyInput !== "Backspace") || keyInput === " "
+    );
+  }
+  function isNumber(input) {
+    return !isNaN(Number(input));
+  }
 
   const handleCCNumChange = (e) => {
-    e.preventDefault();
     const keyInput = e.nativeEvent.data;
-    if ((isNumber(keyInput) && keyInput !== "Backspace") || keyInput === " ")
-      return;
+    console.log("Is invalid? ", isInvalidInput(keyInput));
+    if (isInvalidInput(keyInput)) return;
     const trimmedNum = e.target.value.replace(/ /g, "");
     dispatch({
       type: "FieldSet",
       field: "cardNumber",
       payload: trimmedNum,
     });
-
-    // cardState.cardNumber + keyInput
   };
 
-  function submitCard(e) {
-    e.preventDefault();
-    reduxDispatch(createCard(cardState));
-    navigate("/success");
+  function addSpaces(arg) {
+    let spaced = [...arg]
+      .map((e, i) => (i % 4 === 0 && i !== 0 ? " " + e : e))
+      .join("");
+    return spaced;
   }
 
+  //-------------------------__------------------------
   return (
     <main>
       <h1>Add Card</h1>
       <h2>Hello you can add you card here </h2>
-      <div className="credit-card">
+      <div className={`credit-card ${cardState.vendor} `}>
         Im a card
-        <p>{cardState.cardNumber}</p>
+        <p>{displayedCCNumber}</p>
       </div>
       <form onSubmit={submitCard}>
         <label htmlFor="firstName">
@@ -101,7 +108,7 @@ export default function AddCard() {
         >
           <option value="Mastercard">Mastercard</option>
           <option value="Visa">Visa</option>
-          <option value="American Express">American Express</option>
+          <option value="AmericanExpress">American Express</option>
         </select>
         <br />
         Expiration
@@ -157,12 +164,16 @@ export default function AddCard() {
         <label>
           CCV
           <input
+            type="text"
             name="CCV"
             placeholder="CCV"
             required
             minLength={3}
             maxLength={3}
+            value={cardState.CCV}
             onChange={(e) => {
+              const keyInput = e.nativeEvent.data;
+              if (isInvalidInput(keyInput)) return;
               dispatch({
                 type: "FieldSet",
                 field: "CCV",
@@ -174,7 +185,7 @@ export default function AddCard() {
         <br />
         <button>Create Card!</button>
       </form>
-      <Link to="/">
+      <Link to="/" title="Back to Homepage">
         {" "}
         <button>Abort</button>
       </Link>{" "}

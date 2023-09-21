@@ -28,7 +28,13 @@
   background: slateblue;    
   position: relative   
 }
-.MasterCard{
+.Mastercard{
   background: rgb(135, 101, 40);   
+}
+.Visa{
+  background: rgb(43, 40, 135);   
+}
+.AmericanExpress{
+  background: rgb(7, 73, 28);   
 }
 
