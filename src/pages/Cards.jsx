@@ -52,13 +52,12 @@ export default function Cards() {
                     dispatch(changeActive(card.id));
                   }}
                 >
-        
-
                   <p>{card.cardHolder}</p>
                   <p>{card.vendor}</p>
                   <p>{card.cardNumber}</p>
                   <p>{card.id}</p>
                   <div
+                   
                     onClick={(e) => {
                       e.stopPropagation();
                       dispatch(removeCard(card.id));
@@ -66,11 +65,12 @@ export default function Cards() {
                     style={{
                       zIndex: "100",
                       position: "absolute",
-                      right: "10px",
-                      top: "10px",
+                      right: "-30px",
+                      top: "-10px",
                       backgroundColor: "red",
                       padding: "10px",
                       borderRadius: "12%",
+                      cursor: "pointer",
                     }}
                   >
                     Delete

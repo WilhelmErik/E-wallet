@@ -4,8 +4,6 @@ const USER_API = "https://randomuser.me/api/";
 
 export const getUser = createAsyncThunk("userSlice/getUser", async () => {
   const res = await axios.get(USER_API);
-  console.log(res.data.results[0].name);
-  console.log(res.data);
   return res.data.results[0].name;
 });
 

@@ -7,7 +7,6 @@ export default function AddCard() {
   const reduxDispatch = useDispatch();
   const navigate = useNavigate();
   const userState = useSelector((state) => state.user.name);
-  console.log(userState, " The user State");
   const cardHolderName = (userState.first + " " + userState.last).toUpperCase();
   const initialState = {
     cardHolder: cardHolderName,
