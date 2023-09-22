@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useReducer } from "react";
 import { createCard } from "../Redux/cardsSlice";
+import { addSpaces, isInvalidInput, isNumber } from "../utils";
 
 export default function AddCard() {
   const reduxDispatch = useDispatch();
@@ -38,15 +39,20 @@ export default function AddCard() {
       navigate("/success");
     }
   }
-  function isInvalidInput(keyInput) {
-    return (
-      (!isNumber(keyInput) && keyInput !== "Backspace") || keyInput === " "
-    );
-  }
-  function isNumber(input) {
-    return !isNaN(Number(input));
-  }
-
+  // function isInvalidInput(keyInput) {
+  //   return (
+  //     (!isNumber(keyInput) && keyInput !== "Backspace") || keyInput === " "
+  //   );
+  // }
+  // function isNumber(input) {
+  //   return !isNaN(Number(input));
+  // }
+  // function addSpaces(arg) {
+  //   let spaced = [...arg]
+  //     .map((e, i) => (i % 4 === 0 && i !== 0 ? " " + e : e))
+  //     .join("");
+  //   return spaced;
+  // }
   const handleCCNumChange = (e) => {
     const keyInput = e.nativeEvent.data;
     console.log("Is invalid? ", isInvalidInput(keyInput));
@@ -58,13 +64,6 @@ export default function AddCard() {
       payload: trimmedNum,
     });
   };
-
-  function addSpaces(arg) {
-    let spaced = [...arg]
-      .map((e, i) => (i % 4 === 0 && i !== 0 ? " " + e : e))
-      .join("");
-    return spaced;
-  }
 
   //-------------------------__------------------------
   return (

@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUser } from "../Redux/userSlice";
-import { setNames, } from "../Redux/cardsSlice";
+import { setNames } from "../Redux/cardsSlice";
 
 export default function Root() {
   const userState = useSelector((state) => state.user);
@@ -19,7 +19,7 @@ export default function Root() {
 
   return (
     <div>
-      <h1>Hello</h1>
+      <h1>E-Wallet</h1>
       <Outlet />
     </div>
   );

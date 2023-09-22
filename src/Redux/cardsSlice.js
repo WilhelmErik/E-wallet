@@ -4,7 +4,7 @@ const initialState = [
   {
     active: true,
     vendor: "Visa",
-    cardNumber: 1324939023840243,
+    cardNumber: "1324939023840243",
     cardHolder: "Test Tester",
     expireMonth: 12,
     expireYear: 2023,

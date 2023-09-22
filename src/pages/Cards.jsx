@@ -2,27 +2,19 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // import { getUser } from "../Redux/userSlice";
 // import { useEffect } from "react";
+import { addSpaces } from "../utils";
 import { setNames, removeCard, changeActive } from "../Redux/cardsSlice";
 export default function Cards() {
   const userState = useSelector((state) => state.user);
   const cardsState = useSelector((state) => state.cards);
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(getUser());
-  // }, []);
-
-  // useEffect(() => {
-  //   //i used short circuiting here to check if there is a name prop and then set the names for all of cards
-  //   userState.name &&
-  //     dispatch(setNames(`${userState.name.first} ${userState.name.last}`));
-  // }, [userState]);
 
   let activeCard = cardsState.find((card) => card.active);
   const inactiveCards = cardsState.filter((card) => !card.active);
-
+  console.log(activeCard, "active card");
   return (
     <main>
-      <h1>E-Wallet</h1>
+      <h1>Your Cards</h1>
       <p>Active Card</p>
       <>
         <div className={`credit-card ${activeCard.vendor} `}>
@@ -32,7 +24,7 @@ export default function Cards() {
             <p> {activeCard?.cardHolder || "Loading"}</p>
           )}
           <p> {activeCard?.vendor || "Loading"}</p>
-          <p> {activeCard?.cardNumber || "Loading"}</p>
+          <p> {activeCard.cardNumber ? addSpaces(String(activeCard.cardNumber)) : "Loading"}</p>
           <p>{activeCard?.id || "Loading"}</p>
           <p>
             {" "}
