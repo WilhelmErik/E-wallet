@@ -1,22 +1,18 @@
+/* eslint-disable react/prop-types */
 import { useDispatch, useSelector } from "react-redux";
 import { addSpaces } from "../utils";
 
-export default function Card({ card }) {
+export default function Card({ card, setActive, removeCard }) {
   return (
-    <div className={`credit-card ${activeCard.vendor} `}>
-      <p> {activeCard?.cardHolder || "Loading"}</p>
+    <div className={`credit-card ${card.vendor} `}>
+      <p> {card?.cardHolder || "Loading"}</p>
 
-      <p> {activeCard?.vendor || "Loading"}</p>
+      <p> {card?.vendor || "Loading"}</p>
+      <p> {card.cardNumber ? addSpaces(String(card.cardNumber)) : "Loading"}</p>
+      <p>{card?.id || "Loading"}</p>
       <p>
         {" "}
-        {activeCard.cardNumber
-          ? addSpaces(String(activeCard.cardNumber))
-          : "Loading"}
-      </p>
-      <p>{activeCard?.id || "Loading"}</p>
-      <p>
-        {" "}
-        {activeCard?.expireMonth}/{activeCard?.expireYear}
+        {card?.expireMonth}/{card?.expireYear}
       </p>
     </div>
   );
