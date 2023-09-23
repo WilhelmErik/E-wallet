@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import CreditCard from "../components/CreditCard";
 // import { getUser } from "../Redux/userSlice";
 // import { useEffect } from "react";
 import { addSpaces } from "../utils";
@@ -17,56 +18,26 @@ export default function Cards() {
       <h1>Your Cards</h1>
       <p>Active Card</p>
       <>
-        <div className={`credit-card ${activeCard.vendor} `}>
-          {userState.status === "Loading..." ? (
-            <p>CARDHOLDER</p>
-          ) : (
-            <p> {activeCard?.cardHolder || "Loading"}</p>
-          )}
-          <p> {activeCard?.vendor || "Loading"}</p>
-          <p> {activeCard.cardNumber ? addSpaces(String(activeCard.cardNumber)) : "Loading"}</p>
-          <p>{activeCard?.id || "Loading"}</p>
-          <p>
-            {" "}
-            {activeCard?.expireMonth}/{activeCard?.expireYear}
-          </p>
-        </div>
+        <CreditCard card={activeCard} />
         <p>No</p>
+        <hr />
+        <br />
+
         <div>
           {inactiveCards.map((card, idx) => {
             return (
               <>
-                {" "}
-                <div
-                  key={idx}
-                  className={`credit-card  ${card.vendor}`}
-                  onClick={() => {
+                <CreditCard
+                  key={card.id}
+                  card={card}
+                  setActive={() => {
                     dispatch(changeActive(card.id));
                   }}
-                >
-                  <p>{card.cardHolder}</p>
-                  <p>{card.vendor}</p>
-                  <p>{card.cardNumber}</p>
-                  <p>{card.id}</p>
-                  <div
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      dispatch(removeCard(card.id));
-                    }}
-                    style={{
-                      zIndex: "100",
-                      position: "absolute",
-                      right: "-30px",
-                      top: "-10px",
-                      backgroundColor: "red",
-                      padding: "10px",
-                      borderRadius: "12%",
-                      cursor: "pointer",
-                    }}
-                  >
-                    Delete
-                  </div>
-                </div>
+                  removeCard={(e) => {
+                    e.stopPropagation();
+                    dispatch(removeCard(card.id));
+                  }}
+                />
               </>
             );
           })}

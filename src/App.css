@@ -21,10 +21,11 @@
 
 
 .credit-card{
-  width: 500px;
-  height: 200px;
+  /* aspect-ratio:1.6/1; */
+  width: 330px;
+  height: 210px;
   border: black solid 2px;
-  border-radius: 4%;
+  border-radius: 6%;
   background: slateblue;    
   position: relative   
 }
