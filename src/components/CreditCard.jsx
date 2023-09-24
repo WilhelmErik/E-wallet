@@ -4,28 +4,44 @@ import { addSpaces } from "../utils";
 
 export default function CreditCard({ card, setActive, removeCard }) {
   return (
-    <div className={`credit-card  ${card.vendor}`} onClick={!card.active &&setActive}>
-      <p>{card.cardHolder}</p>
-      <p>{card.vendor}</p>
-      <p>{card.cardNumber}</p>
-      <p>{card.id}</p>
-      {!card.active && (
+    <div className="card-container">
+     
+
+      <div className={card.active && "card"}>
         <div
-          onClick={removeCard}
-          style={{
-            zIndex: "100",
-            position: "absolute",
-            right: "-30px",
-            top: "-10px",
-            backgroundColor: "red",
-            padding: "10px",
-            borderRadius: "12%",
-            cursor: "pointer",
-          }}
+          className={` credit-card card-front ${card.vendor}`}
+          onClick={!card.active ? setActive : undefined}
         >
-          Delete
+          <img
+            src={`./assets/Chip.png`}
+            alt=""
+            className={`card-chip ${card.vendor}`}
+            title={`vendor-logo ${card.vendor}`}
+          />
+          <img
+            src={`./assets/logos/${card.vendor}.png`}
+            alt=""
+            className={`vendor-logo ${card.vendor}`}
+            title={`vendor-logo ${card.vendor}`}
+          />
+
+          <p className="card-number">{addSpaces(card.cardNumber)}</p>
+          <p className="card-holder">{card.cardHolder}</p>
+          <p className="expiration-date">
+            {card.expireMonth}/{card.expireYear}
+          </p>
+
+          {!card.active && (
+            <div className="removal-button" onClick={removeCard}>
+              Delete
+            </div>
+          )}
         </div>
-      )}
+        <div className="credit-card card-back">
+          <p>{card.CCV}</p>
+          card back
+        </div>
+      </div>
     </div>
   );
 }

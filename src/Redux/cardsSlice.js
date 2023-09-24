@@ -3,11 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = [
   {
     active: true,
-    vendor: "Visa",
+    vendor: "AmericanExpress",
     cardNumber: "1324939023840243",
     cardHolder: "Test Tester",
     expireMonth: 12,
-    expireYear: 2023,
+    expireYear: 23,
     CCV: 332,
     id: "02b72fe3-8bce-4816-8cf9-b81590ec5fcc",
   },

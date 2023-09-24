@@ -1,5 +1,5 @@
 #root {
-  max-width: 1280px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -22,20 +22,113 @@
 
 .credit-card{
   /* aspect-ratio:1.6/1; */
+  perspective: 1000px;
+  color: rgb(210, 206, 206);
+  text-shadow: 1px 2px  rgb(17, 22, 17);
+  font-size: 1.2rem;
+  letter-spacing: 4px;
+  
   width: 330px;
   height: 210px;
   border: black solid 2px;
   border-radius: 6%;
-  background: slateblue;    
-  position: relative   
+  background: linear-gradient(45deg,rgb(25, 25, 135),slateblue) ;  
+  position: relative   ;
+  font-weight: bold;
+  box-shadow: 2px -2px 2px black;
+  margin-bottom: 20px;
+ 
 }
-.Mastercard{
-  background: rgb(135, 101, 40);   
+.card-container {
+  perspective: 1000px; /* Creates depth perception */
+  position: relative;
+ height: 300px;
+ width: 300px;
 }
-.Visa{
-  background: rgb(43, 40, 135);   
+.card{
+ 
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1.5s ease;
 }
-.AmericanExpress{
-  background: rgb(7, 73, 28);   
+.card-container:hover > .card {
+transform: rotateY(180deg);
 }
 
+.card-front,
+.card-back {
+  position: absolute;
+  backface-visibility: hidden; /* Hide the back face during rotation */
+;
+ 
+}
+.card-back {
+  transform: rotateY(180deg); /* Initially rotate back card by 180 degrees */
+}
+
+
+
+.removal-button{
+  font-family: 'Courier New', Courier, monospace;
+  z-index:  100;
+ position: absolute;
+  right: -60px;
+ top: -10px;
+  background-color: red;
+  padding: 2px;
+ border-radius: 12%;
+  cursor: pointer;
+  border: 2px rgba(0, 0, 0, 0.432) inset;
+  box-shadow: 2px 2px rgb(57, 25, 25);
+}
+ .Mastercard{
+  background: linear-gradient(45deg,rgb(135, 25, 25),slateblue) ;  
+}
+
+.Visa{
+  background: linear-gradient(45deg,rgb(25, 25, 135),slateblue) ;  
+}
+.AmericanExpress{
+  background: linear-gradient(45deg,rgb(29, 135, 25),slateblue) ;  
+} 
+.card-number{
+  outline: invert;
+  position: absolute;
+  left: 40px;
+  top: 45%;
+}
+.vendor-logo .Mastercard{
+  background-color: red;
+}
+.vendor-logo {
+  /* height: 40px; */
+  width: 60px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  
+}
+.card-holder{
+color: rgb(225, 225, 225);
+font-size: 0.7rem;
+position: absolute;
+bottom: 4%;
+left: 4%;
+}
+.expiration-date{
+font-size: 12px;
+position: absolute;
+bottom: 14%;
+left: 44%;
+}
+
+.card-chip{
+  width: 44px;
+  position: absolute;
+  left: 40px;
+  top: 35%;
+  box-shadow: 1px 1px black,-1px -1px 2px black;
+}
+.valid-through{
+
+}
