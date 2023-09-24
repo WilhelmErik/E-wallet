@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useReducer } from "react";
 import { createCard } from "../Redux/cardsSlice";
 import { addSpaces, isInvalidInput, isNumber } from "../utils";
-
+import CreditCard from "../components/CreditCard";
 export default function AddCard() {
   const reduxDispatch = useDispatch();
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ export default function AddCard() {
     cardNumber: "",
     vendor: "Mastercard",
     expireMonth: "01",
-    expireYear: "2023",
+    expireYear: "23",
     CCV: "",
   };
   function cardFormReducer(state, action) {
@@ -35,7 +35,7 @@ export default function AddCard() {
   function submitCard(e) {
     e.preventDefault();
     if (cardState.cardNumber.length === 16) {
-      reduxDispatch(createCard(cardState));
+      reduxDispatch(createCard({ ...cardState, active: false }));
       navigate("/success");
     }
   }
@@ -53,6 +53,10 @@ export default function AddCard() {
   //     .join("");
   //   return spaced;
   // }
+  const turnCard = document.querySelector(".card-container .card");
+
+  
+
   const handleCCNumChange = (e) => {
     const keyInput = e.nativeEvent.data;
     console.log("Is invalid? ", isInvalidInput(keyInput));
@@ -69,11 +73,11 @@ export default function AddCard() {
   return (
     <main>
       <h1>Add Card</h1>
-      <h2>Hello you can add you card here </h2>
-      <div className={`credit-card ${cardState.vendor} `}>
+      <CreditCard card={{ ...cardState, active: true ,cardHolder:cardHolderName}} />
+      {/* <div className={`credit-card ${cardState.vendor} `}>
         Im a card
         <p>{displayedCCNumber}</p>
-      </div>
+      </div> */}
       <form onSubmit={submitCard}>
         <label htmlFor="firstName">
           Card Holder
@@ -170,6 +174,8 @@ export default function AddCard() {
             minLength={3}
             maxLength={3}
             value={cardState.CCV}
+            onFocus={() => turnCard.classList.add("rotated")}
+            onBlur={() => turnCard.classList.remove("rotated")}
             onChange={(e) => {
               const keyInput = e.nativeEvent.data;
               if (isInvalidInput(keyInput)) return;

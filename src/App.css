@@ -49,9 +49,12 @@
  
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 1.5s ease;
+  transition: transform 1s ease;
 }
 .card-container:hover > .card {
+transform: rotateY(180deg);
+}
+.card.rotated{
 transform: rotateY(180deg);
 }
 
@@ -69,7 +72,7 @@ transform: rotateY(180deg);
 
 
 .removal-button{
-  font-family: 'Courier New', Courier, monospace;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   z-index:  100;
  position: absolute;
   right: -60px;
@@ -81,7 +84,7 @@ transform: rotateY(180deg);
   border: 2px rgba(0, 0, 0, 0.432) inset;
   box-shadow: 2px 2px rgb(57, 25, 25);
 }
- .Mastercard{
+ /* .Mastercard{
   background: linear-gradient(45deg,rgb(135, 25, 25),slateblue) ;  
 }
 
@@ -90,7 +93,7 @@ transform: rotateY(180deg);
 }
 .AmericanExpress{
   background: linear-gradient(45deg,rgb(29, 135, 25),slateblue) ;  
-} 
+}  */
 .card-number{
   outline: invert;
   position: absolute;
@@ -131,4 +134,25 @@ left: 44%;
 }
 .valid-through{
 
+}
+.barcode{
+  margin-top: 10px;
+  width: 100%;
+  min-width: 300px;
+  height:50px;
+  background-color: black;
+}
+.CCV-div{
+  width: 80%;
+  height: 40px;
+  background-color: white;
+  color: black;
+  text-align: right;
+  text-shadow: 0 0 0;
+  margin-left: 10px;
+  margin-top: -10px;
+}
+
+.backside-lorem{
+  font-size: 8px;
 }
