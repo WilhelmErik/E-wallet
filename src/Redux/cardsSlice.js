@@ -4,11 +4,11 @@ const initialState = [
   {
     active: true,
     vendor: "Visa",
-    cardNumber: "1324939023840243",
+    cardNumber: "3141592653589793",
     cardHolder: "Test Tester",
-    expireMonth: 12,
-    expireYear: 23,
-    CCV: 332,
+    expireMonth: 13,
+    expireYear: 37,
+    CCV: 666,
     id: "02b72fe3-8bce-4816-8cf9-b81590ec5fcc",
   },
 ];
