@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import CreditCard from "../components/CreditCard";
 // import { getUser } from "../Redux/userSlice";
 // import { useEffect } from "react";
-import { addSpaces } from "../utils";
+// import { addSpaces } from "../utils";
 import { setNames, removeCard, changeActive } from "../Redux/cardsSlice";
 export default function Cards() {
-  const userState = useSelector((state) => state.user);
+  // const userState = useSelector((state) => state.user);
   const cardsState = useSelector((state) => state.cards);
   const dispatch = useDispatch();
 
@@ -24,7 +24,7 @@ export default function Cards() {
         <br />
 
         <div>
-          {inactiveCards.map((card, idx) => {
+          {inactiveCards.map((card) => {
             return (
               <>
                 <CreditCard
