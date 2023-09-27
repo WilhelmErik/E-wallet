@@ -42,14 +42,14 @@
 .card-container {
   perspective: 1000px; /* Creates depth perception */
   position: relative;
- height: 300px;
- width: 300px;
+ height: 220px;
+ width: 330px;
 }
 .card{
  
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 1s ease;
+  transition: transform 1s ease-out;
 }
 .card-container:hover > .card {
 transform: rotateY(180deg);
@@ -72,16 +72,13 @@ transform: rotateY(180deg);
 
 
 .removal-button{
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   z-index:  100;
  position: absolute;
   right: -60px;
  top: -10px;
-  background-color: red;
-  padding: 2px;
- border-radius: 12%;
+ 
   cursor: pointer;
-  border: 2px rgba(0, 0, 0, 0.432) inset;
+ 
   box-shadow: 2px 2px rgb(57, 25, 25);
 }
  /* .Mastercard{
@@ -155,4 +152,14 @@ left: 44%;
 
 .backside-lorem{
   font-size: 8px;
+}
+
+.valid-thru{
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: black;
+  text-shadow: none;
+}
+#standard-basic{
+  color:white;
 }

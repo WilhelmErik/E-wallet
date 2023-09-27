@@ -1,6 +1,9 @@
 import { useRouteError, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-
+//
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
+//
 export default function ErrorPage() {
   const error = useRouteError();
   console.error(error);
@@ -11,11 +14,14 @@ export default function ErrorPage() {
 
   return (
     <div id="error-page">
-      <h1>Oops!</h1>
-      <p>Sorry, an unexpected error has occurred.</p>
-      <p>
-        <i>{error.statusText || error.message}</i>
-      </p>
+      <Stack sx={{ width: "100%" }} spacing={2}>
+        <h1>Oops!</h1>
+        <p>Sorry, an unexpected error has occurred.</p>
+        <Alert variant="filled" severity="error">
+          <i>{error.statusText || error.message}</i>
+        </Alert>
+      </Stack>
+      <p></p>
     </div>
   );
 }

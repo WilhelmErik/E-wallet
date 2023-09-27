@@ -19,7 +19,7 @@ export default function Cards() {
       <p>Active Card</p>
       <>
         <CreditCard card={activeCard} />
-        <p>No</p>
+
         <hr />
         <br />
 
@@ -56,6 +56,7 @@ export default function Cards() {
           Add new card
         </button>
       </Link>{" "}
+      {cardsState.length >= 4 && <p>Max 4 Cards</p>}
     </main>
   );
 }

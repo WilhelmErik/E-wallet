@@ -1,9 +1,29 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import { createCard } from "../Redux/cardsSlice";
-import { addSpaces, isInvalidInput, isNumber } from "../utils";
+import { addSpaces, isInvalidInput } from "../utils";
 import CreditCard from "../components/CreditCard";
+
+//--
+import { TextField } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+//
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
+//--
 export default function AddCard() {
   const reduxDispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,8 +44,6 @@ export default function AddCard() {
     }
   }
 
-  // const [cardInput, setCardInput] = useState({});
-
   const [cardState, dispatch] = useReducer(cardFormReducer, initialState);
 
   let displayedCCNumber = addSpaces(String(cardState.cardNumber));
@@ -34,9 +52,14 @@ export default function AddCard() {
 
   function submitCard(e) {
     e.preventDefault();
+
     if (cardState.cardNumber.length === 16) {
+      setCredNumErr(false);
       reduxDispatch(createCard({ ...cardState, active: false }));
       navigate("/success");
+    } else {
+      setCredNumErr(true);
+      alert("that aint right sir ");
     }
   }
   // function isInvalidInput(keyInput) {
@@ -55,8 +78,6 @@ export default function AddCard() {
   // }
   const turnCard = document.querySelector(".card-container .card");
 
-  
-
   const handleCCNumChange = (e) => {
     const keyInput = e.nativeEvent.data;
     console.log("Is invalid? ", isInvalidInput(keyInput));
@@ -69,110 +90,239 @@ export default function AddCard() {
     });
   };
 
+  const [credNumErr, setCredNumErr] = useState(false);
   //-------------------------__------------------------
   return (
-    <main>
-      <h1>Add Card</h1>
-      <CreditCard card={{ ...cardState, active: true ,cardHolder:cardHolderName}} />
-      {/* <div className={`credit-card ${cardState.vendor} `}>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <main>
+        <div>
+          {/* <TextField
+            minLength={3}
+            maxLength={3}
+            required
+            type="text"
+            id="standard-basic"
+            placeholder="***"
+            label="Card Number"
+            variant="outlined"
+            color="secondary"
+            value={cardState.CCV}
+            onFocus={() => turnCard.classList.add("rotated")}
+            onBlur={() => turnCard.classList.remove("rotated")}
+            onChange={(e) => {
+              const keyInput = e.nativeEvent.data;
+              if (isInvalidInput(keyInput)) return;
+              dispatch({
+                type: "FieldSet",
+                field: "CCV",
+                payload: e.target.value,
+              });
+            }}
+          /> */}
+        </div>
+        <h1>Add Card</h1>
+        <CreditCard
+          card={{
+            ...cardState,
+            active: true,
+            cardHolder: cardHolderName,
+          }}
+        />
+        {/* <div className={`credit-card ${cardState.vendor} `}>
         Im a card
         <p>{displayedCCNumber}</p>
       </div> */}
-      <form onSubmit={submitCard}>
-        <label htmlFor="firstName">
-          Card Holder
-          <input value={cardHolderName} disabled name="cardHolder" />
-        </label>
-        <br />
-        <label htmlFor="">
-          Card Number
-          <input
-            type="text"
-            minLength={19}
-            maxLength={19}
-            name="cardNumber"
+        <form onSubmit={submitCard}>
+          <TextField
+            disabled
+            id=""
+            label={"Cardholder"}
+            value={cardHolderName}
+          />
+          <br />
+          <TextField
+            error={credNumErr}
+            style={{ margin: "10px" }}
+            inputProps={{ maxLength: "19" }}
+            required
+            id="standard-basic"
+            placeholder="**** **** **** ****"
+            label="Cardnumber"
+            variant="outlined"
+            color="secondary"
             value={displayedCCNumber}
             onChange={(e) => handleCCNumChange(e)}
           />
-        </label>
-        <br />
-        Vendor:
-        <select
-          name="vendor"
-          id=""
-          value={cardState.vendor}
-          onChange={(e) => {
-            dispatch({
-              type: "FieldSet",
-              field: "vendor",
-              payload: e.target.value,
-            });
-          }}
-        >
-          <option value="Mastercard">Mastercard</option>
-          <option value="Visa">Visa</option>
-          <option value="AmericanExpress">American Express</option>
-        </select>
-        <br />
-        Expiration
-        <select
-          name="expireMonth"
-          id=""
-          value={cardState.expireMonth || "01"}
-          onChange={(e) => {
-            dispatch({
-              type: "FieldSet",
-              field: "expireMonth",
-              payload: e.target.value,
-            });
-          }}
-        >
-          <option value="01">01</option>
-          <option value="02">02</option>
-          <option value="03">03</option>
-          <option value="04">04</option>
-          <option value="05">05</option>
-          <option value="06">06</option>
-          <option value="07">07</option>
-          <option value="08">08</option>
-          <option value="09">09</option>
-          <option value="10">10</option>
-          <option value="11">11</option>
-          <option value="12">12</option>
-        </select>
-        <select
-          name="expireYear"
-          id=""
-          value={cardState.expireYear || "2023"}
-          onChange={(e) => {
-            dispatch({
-              type: "FieldSet",
-              field: "expireYear",
-              payload: e.target.value,
-            });
-          }}
-        >
-          <option value="23">2023</option>
-          <option value="24">2024</option>
-          <option value="25">2025</option>
-          <option value="26">2026</option>
-          <option value="27">2027</option>
-          <option value="28">2028</option>
-          <option value="29">2029</option>
-          <option value="30">2030</option>
-          <option value="31">2031</option>
-          <option value="32">2032</option>
-        </select>
-        <br />
-        <label>
-          CCV
-          <input
-            type="text"
-            name="CCV"
-            placeholder="CCV"
+          {/* <label htmlFor="">
+            Card Number
+            <input
+              type="text"
+              minLength={19}
+              maxLength={19}
+              name="cardNumber"
+              value={displayedCCNumber}
+              onChange={(e) => handleCCNumChange(e)}
+            />
+          </label> */}
+          <br />
+          <FormControl sx={{ m: 1, width: 224 }}>
+            <InputLabel id="demo-simple-select-helper-label">Vendor</InputLabel>
+            <Select
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              value={cardState.vendor}
+              label="Vendor"
+              onChange={(e) => {
+                dispatch({
+                  type: "FieldSet",
+                  field: "vendor",
+                  payload: e.target.value,
+                });
+              }}
+            >
+              <MenuItem value={"Mastercard"}>Mastercard</MenuItem>
+              <MenuItem value={"Visa"}>Visa</MenuItem>
+              <MenuItem value={"AmericanExpress"}>American Express</MenuItem>
+            </Select>
+            <FormHelperText>Credit card vendor</FormHelperText>
+          </FormControl>
+          <br />
+
+          <FormControl sx={{ m: 1, width: 80 }}>
+            <InputLabel id="demo-simple-select-helper-label">Month</InputLabel>
+            <Select
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              value={cardState.expireMonth}
+              label="Month"
+              onChange={(e) => {
+                dispatch({
+                  type: "FieldSet",
+                  field: "expireMonth",
+                  payload: e.target.value,
+                });
+              }}
+            >
+              <MenuItem value="01">01</MenuItem>
+              <MenuItem value="02">02</MenuItem>
+              <MenuItem value="03">03</MenuItem>
+              <MenuItem value="04">04</MenuItem>
+              <MenuItem value="05">05</MenuItem>
+              <MenuItem value="06">06</MenuItem>
+              <MenuItem value="07">07</MenuItem>
+              <MenuItem value="08">08</MenuItem>
+              <MenuItem value="09">09</MenuItem>
+              <MenuItem value="10">10</MenuItem>
+              <MenuItem value="11">11</MenuItem>
+              <MenuItem value="12">12</MenuItem>
+            </Select>
+          </FormControl>
+
+          <FormControl sx={{ m: 1, width: 120 }}>
+            <InputLabel id="demo-simple-select-helper-label">year</InputLabel>
+            <Select
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              value={cardState.expireYear}
+              label="Expiration year"
+              onChange={(e) => {
+                dispatch({
+                  type: "FieldSet",
+                  field: "expireYear",
+                  payload: e.target.value,
+                });
+              }}
+            >
+              <MenuItem value="23">2023</MenuItem>
+              <MenuItem value="24">2024</MenuItem>
+              <MenuItem value="25">2025</MenuItem>
+              <MenuItem value="26">2026</MenuItem>
+              <MenuItem value="27">2027</MenuItem>
+              <MenuItem value="28">2028</MenuItem>
+              <MenuItem value="29">2029</MenuItem>
+              <MenuItem value="30">2030</MenuItem>
+              <MenuItem value="31">2031</MenuItem>
+              <MenuItem value="32">2032</MenuItem>
+            </Select>
+          </FormControl>
+          {/* Vendor:
+          <select
+            name="vendor"
+            id=""
+            value={cardState.vendor}
+            onChange={(e) => {
+              dispatch({
+                type: "FieldSet",
+                field: "vendor",
+                payload: e.target.value,
+              });
+            }}
+          >
+            <option value="Mastercard">Mastercard</option>
+            <option value="Visa">Visa</option>
+            <option value="AmericanExpress">American Express</option>
+          </select> */}
+          <br />
+          {/* Expiration
+          <select
+            name="expireMonth"
+            id=""
+            value={cardState.expireMonth || "01"}
+            onChange={(e) => {
+              dispatch({
+                type: "FieldSet",
+                field: "expireMonth",
+                payload: e.target.value,
+              });
+            }}
+          >
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+          </select>
+          <select
+            name="expireYear"
+            id=""
+            value={cardState.expireYear || "2023"}
+            label="Expiration Year"
+            onChange={(e) => {
+              dispatch({
+                type: "FieldSet",
+                field: "expireYear",
+                payload: e.target.value,
+              });
+            }}
+          >
+            <option value="23">2023</option>
+            <option value="24">2024</option>
+            <option value="25">2025</option>
+            <option value="26">2026</option>
+            <option value="27">2027</option>
+            <option value="28">2028</option>
+            <option value="29">2029</option>
+            <option value="30">2030</option>
+            <option value="31">2031</option>
+            <option value="32">2032</option>
+          </select> */}
+          <br />
+          <TextField
+            inputProps={{ maxLength: "3", minLength: "3" }}
             required
-            minLength={3}
-            maxLength={3}
+            id="standard-basic"
+            placeholder="***"
+            label="CCV"
+            variant="outlined"
+            color="secondary"
             value={cardState.CCV}
             onFocus={() => turnCard.classList.add("rotated")}
             onBlur={() => turnCard.classList.remove("rotated")}
@@ -186,14 +336,24 @@ export default function AddCard() {
               });
             }}
           />
-        </label>
-        <br />
-        <button>Create Card!</button>
-      </form>
-      <Link to="/" title="Back to Homepage">
-        {" "}
-        <button>Abort</button>
-      </Link>{" "}
-    </main>
+          <br />
+        
+            <Button
+              variant="outlined"
+              type="submit"
+              color="success"
+              style={{ margin: "1em" }}
+            >
+              Create Card!
+            </Button>
+        </form>
+        <Link to="/" title="Back to Homepage">
+          {" "}
+          <Button variant="outlined" color="error" style={{ width: "140px" }} size="large">
+            Abort
+          </Button>
+        </Link>{" "}
+      </main>
+    </ThemeProvider>
   );
 }
