@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CreditCard from "../components/CreditCard";
+import Button from "@mui/material/Button";
+
 // import { getUser } from "../Redux/userSlice";
 // import { useEffect } from "react";
 // import { addSpaces } from "../utils";
@@ -44,8 +46,9 @@ export default function Cards() {
         </div>
       </>
       <Link to="/newCard">
-        {" "}
-        <button
+        <Button
+          variant="outlined"
+          color="secondary"
           disabled={cardsState.length >= 4}
           title={
             cardsState.length >= 4
@@ -54,7 +57,17 @@ export default function Cards() {
           }
         >
           Add new card
-        </button>
+        </Button>{" "}
+        {/* <button
+          disabled={cardsState.length >= 4}
+          title={
+            cardsState.length >= 4
+              ? "Please remove a card"
+              : "Add another card!"
+          }
+        >
+          Add new card
+        </button> */}
       </Link>{" "}
       {cardsState.length >= 4 && <p>Max 4 Cards</p>}
     </main>
