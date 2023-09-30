@@ -40,7 +40,7 @@
  
 }
 .card-container {
-  perspective: 1000px; /* Creates depth perception */
+  perspective: 1000px; 
   position: relative;
  height: 220px;
  width: 330px;
@@ -61,12 +61,12 @@ transform: rotateY(180deg);
 .card-front,
 .card-back {
   position: absolute;
-  backface-visibility: hidden; /* Hide the back face during rotation */
+  backface-visibility: hidden; 
 ;
  
 }
 .card-back {
-  transform: rotateY(180deg); /* Initially rotate back card by 180 degrees */
+  transform: rotateY(180deg); 
 }
 
 

@@ -97,29 +97,6 @@ export default function AddCard() {
       <CssBaseline />
       <main>
         <div>
-          {/* <TextField
-            minLength={3}
-            maxLength={3}
-            required
-            type="text"
-            id="standard-basic"
-            placeholder="***"
-            label="Card Number"
-            variant="outlined"
-            color="secondary"
-            value={cardState.CCV}
-            onFocus={() => turnCard.classList.add("rotated")}
-            onBlur={() => turnCard.classList.remove("rotated")}
-            onChange={(e) => {
-              const keyInput = e.nativeEvent.data;
-              if (isInvalidInput(keyInput)) return;
-              dispatch({
-                type: "FieldSet",
-                field: "CCV",
-                payload: e.target.value,
-              });
-            }}
-          /> */}
         </div>
         <h1>Add Card</h1>
         <CreditCard
@@ -129,10 +106,7 @@ export default function AddCard() {
             cardHolder: cardHolderName,
           }}
         />
-        {/* <div className={`credit-card ${cardState.vendor} `}>
-        Im a card
-        <p>{displayedCCNumber}</p>
-      </div> */}
+   
         <form onSubmit={submitCard}>
           <TextField
             disabled
@@ -154,17 +128,7 @@ export default function AddCard() {
             value={displayedCCNumber}
             onChange={(e) => handleCCNumChange(e)}
           />
-          {/* <label htmlFor="">
-            Card Number
-            <input
-              type="text"
-              minLength={19}
-              maxLength={19}
-              name="cardNumber"
-              value={displayedCCNumber}
-              onChange={(e) => handleCCNumChange(e)}
-            />
-          </label> */}
+       
           <br />
           <FormControl sx={{ m: 1, width: 224 }}>
             <InputLabel id="demo-simple-select-helper-label">Vendor</InputLabel>
@@ -246,74 +210,6 @@ export default function AddCard() {
               <MenuItem value="32">2032</MenuItem>
             </Select>
           </FormControl>
-          {/* Vendor:
-          <select
-            name="vendor"
-            id=""
-            value={cardState.vendor}
-            onChange={(e) => {
-              dispatch({
-                type: "FieldSet",
-                field: "vendor",
-                payload: e.target.value,
-              });
-            }}
-          >
-            <option value="Mastercard">Mastercard</option>
-            <option value="Visa">Visa</option>
-            <option value="AmericanExpress">American Express</option>
-          </select> */}
-          <br />
-          {/* Expiration
-          <select
-            name="expireMonth"
-            id=""
-            value={cardState.expireMonth || "01"}
-            onChange={(e) => {
-              dispatch({
-                type: "FieldSet",
-                field: "expireMonth",
-                payload: e.target.value,
-              });
-            }}
-          >
-            <option value="01">01</option>
-            <option value="02">02</option>
-            <option value="03">03</option>
-            <option value="04">04</option>
-            <option value="05">05</option>
-            <option value="06">06</option>
-            <option value="07">07</option>
-            <option value="08">08</option>
-            <option value="09">09</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-          </select>
-          <select
-            name="expireYear"
-            id=""
-            value={cardState.expireYear || "2023"}
-            label="Expiration Year"
-            onChange={(e) => {
-              dispatch({
-                type: "FieldSet",
-                field: "expireYear",
-                payload: e.target.value,
-              });
-            }}
-          >
-            <option value="23">2023</option>
-            <option value="24">2024</option>
-            <option value="25">2025</option>
-            <option value="26">2026</option>
-            <option value="27">2027</option>
-            <option value="28">2028</option>
-            <option value="29">2029</option>
-            <option value="30">2030</option>
-            <option value="31">2031</option>
-            <option value="32">2032</option>
-          </select> */}
           <br />
           <TextField
             inputProps={{ maxLength: "3", minLength: "3" }}
