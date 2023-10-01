@@ -81,7 +81,7 @@ transform: rotateY(180deg);
  
   box-shadow: 2px 2px rgb(57, 25, 25);
 }
- /* .Mastercard{
+ .Mastercard{
   background: linear-gradient(45deg,rgb(135, 25, 25),slateblue) ;  
 }
 
@@ -90,7 +90,7 @@ transform: rotateY(180deg);
 }
 .AmericanExpress{
   background: linear-gradient(45deg,rgb(29, 135, 25),slateblue) ;  
-}  */
+} 
 .card-number{
   outline: invert;
   position: absolute;
@@ -101,7 +101,6 @@ transform: rotateY(180deg);
   background-color: red;
 }
 .vendor-logo {
-  /* height: 40px; */
   width: 60px;
   position: absolute;
   bottom: 10px;
